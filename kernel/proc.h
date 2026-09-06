@@ -82,6 +82,18 @@ enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 struct proc {
   struct spinlock lock;
 
+//Changes start----
+  int queue_level;
+  int ticks_used;
+  int waiting_ticks;
+//Changes end-----
+//Chnages start for statistics-------------
+uint cpu_ticks;
+uint total_wait_ticks;
+uint creation_tick;
+uint first_run_tick;
+uint finish_tick; //for TAT
+//Changes end for statistics------------
   // p->lock must be held when using these:
   enum procstate state; // Process state
   void *chan;           // If non-zero, sleeping on chan

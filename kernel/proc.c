@@ -125,6 +125,18 @@ found:
   p->pid = allocpid();
   p->state = USED;
 
+//Changes start------------------
+p->queue_level = 0;
+p->ticks_used = 0;
+p->waiting_ticks = 0;
+//Changes end------------------
+//Changes start for statistics-----------
+p->cpu_ticks = 0;
+p->total_wait_ticks = 0;
+p->creation_tick = ticks;
+p->first_run_tick = 0;
+p->finish_tick = 0;
+//Changes ends for statistics------------
   // Allocate a trapframe page.
   if ((p->trapframe = (struct trapframe *)kalloc()) == 0) {
     freeproc(p);
@@ -355,6 +367,15 @@ kexit(int status)
   acquire(&p->lock);
 
   p->xstate = status;
+//Changes starts for statistics TAT---------------
+  p->finish_tick = ticks;
+  printk("PID %d finished: CPU=%d Wait=%d Response=%d Turnaround=%d\n",
+       p->pid,
+       p->cpu_ticks,
+       p->total_wait_ticks,
+       (int)(p->first_run_tick - p->creation_tick),
+       (int)(p->finish_tick - p->creation_tick));
+//Changes ends for statistics ----------------
   p->state = ZOMBIE;
 
   release(&wait_lock);
@@ -424,50 +445,67 @@ kwait(uint64 addr)
 //  - choose a process to run.
 //  - swtch to start running that process.
 //  - eventually that process transfers control
-//    via swtch back to the scheduler.
+
+//Changes start----------------(replaced scheduler function)
 void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *best;
   struct cpu *c = mycpu();
 
   c->proc = 0;
+
   for (;;) {
-    // The most recent process to run may have had interrupts
-    // turned off; enable them to avoid a deadlock if all
-    // processes are waiting. Then turn them back off
-    // to avoid a possible race between an interrupt
-    // and wfi.
     intr_on();
     intr_off();
 
-    int found = 0;
+    best = 0;
+
+    // Find the highest-priority RUNNABLE process.
     for (p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
+
       if (p->state == RUNNABLE) {
-        // Switch to chosen process.  It is the process's job
-        // to release its lock and then reacquire it
-        // before jumping back to us.
-        p->state = RUNNING;
-        c->proc = p;
-        swtch(&c->context, &p->context);
+        if (best == 0 || p->queue_level < best->queue_level) {
+          if (best != 0)
+            release(&best->lock);
 
-        // Don't re-enable interrupts on release.
-        mycpu()->intena = 0;
-
-        // Process is done running for now.
-        // It should have changed its p->state before coming back.
-        c->proc = 0;
-        found = 1;
+          best = p;
+          continue;
+        }
       }
+
       release(&p->lock);
     }
-    if (found == 0) {
-      // nothing to run; stop running on this core until an interrupt.
+
+    if (best != 0) {
+      // The process is getting CPU, so stop counting its waiting time.
+      best->waiting_ticks = 0;
+//Changes starts for staticstis-----------------
+    // Record the first time this process gets the CPU.
+    if (best->first_run_tick == 0)
+      best->first_run_tick = ticks;
+//Chnages ends for statistics--------------------
+      // Run the selected process.
+      best->state = RUNNING;
+      c->proc = best;
+
+      swtch(&c->context, &best->context);
+
+      mycpu()->intena = 0;
+
+      c->proc = 0;
+
+      release(&best->lock);
+    } else {
+      // No runnable process.
       asm volatile("wfi");
     }
   }
 }
+//Changes end------------------(replaced scheduler function)
+
 
 // Switch to scheduler.  Must hold only p->lock
 // and have changed proc->state. Saves and restores
@@ -509,6 +547,45 @@ yield(void)
 
 // A fork child's very first scheduling by scheduler()
 // will swtch to forkret.
+
+
+//Changes start---------- (added timer_yield() function)
+// Yield because of a timer interrupt.
+// Used by the MLFQ scheduler to account for CPU time.
+void
+timer_yield(void)
+{
+  struct proc *p = myproc();
+
+  acquire(&p->lock);
+
+  // One CPU tick has been consumed.
+  p->ticks_used++;
+//Changes starts for statistics----------
+p->cpu_ticks++;
+//Changes ends for statistics----------
+
+  // Check whether the process used its entire quantum.
+  if (p->queue_level == 0 && p->ticks_used >= 4) {
+    p->queue_level = 1;
+    p->ticks_used = 0;
+  }
+  else if (p->queue_level == 1 && p->ticks_used >= 8) {
+    p->queue_level = 2;
+    p->ticks_used = 0;
+  }
+  else if (p->queue_level == 2 && p->ticks_used >= 16) {
+    // Q2 is already the lowest priority.
+    p->ticks_used = 0;
+  }
+
+  p->state = RUNNABLE;
+  sched();
+  release(&p->lock);
+}
+//Changes ends----(added timer_yield function)
+
+
 void
 forkret(void)
 {
@@ -589,6 +666,12 @@ wakeup(void *chan)
       // go to sleep, also set it back to RUNNING.
       if (p->state == SLEEPING) {
         p->state = RUNNABLE;
+//Changes starts--------------
+	// I/O-bound process did not consume its entire quantum.
+  	// Give it a fresh quantum when it wakes up.
+  	p->ticks_used = 0;
+  	p->waiting_ticks = 0;
+//Chnages ends----------
       }
     }
     release(&p->lock);
@@ -689,13 +772,64 @@ procdump(void)
 
   printk("\n");
   for (p = proc; p < &proc[NPROC]; p++) {
+//Changes starts for statistics-----------------
+    int response = 0;
+    int turnaround = 0;
+//Changes ends for statistics-----------------
     if (p->state == UNUSED)
       continue;
     if (p->state >= 0 && p->state < NELEM(states) && states[p->state])
       state = states[p->state];
     else
       state = "???";
-    printk("%d %s %s", p->pid, state, p->name);
+//Changes starts for statistics---------------------
+if (p->first_run_tick != 0)
+  response = p->first_run_tick - p->creation_tick;
+
+if (p->finish_tick != 0)
+  turnaround = p->finish_tick - p->creation_tick;
+//Changes ends for statistis----------------
+//Changes starts---------
+printk("%d %s %s Q%d used=%d cpu=%d wait=%d totalwait=%d create=%d first=%d response=%d finish=%d turnaround=%d\n",
+       p->pid, state, p->name,
+       p->queue_level,
+       p->ticks_used,
+       p->cpu_ticks,
+       p->waiting_ticks,
+       p->total_wait_ticks,
+       p->creation_tick,
+       p->first_run_tick,
+       response,
+       p->finish_tick,
+       turnaround);
+//Changes ends-----
     printk("\n");
   }
 }
+
+//Changes starts-----(Implemented aging)
+void
+update_aging(void)
+{
+  struct proc *p;
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+
+    if (p->state == RUNNABLE) {
+  	p->waiting_ticks++;
+	p->total_wait_ticks++; // Changes for statistics-------------
+
+	if (p->waiting_ticks >= 50) {
+    		if (p->queue_level > 0) {
+      			p->queue_level--;
+    		}
+
+    		p->waiting_ticks = 0;
+  	}
+    }
+
+    release(&p->lock);
+  }
+}
+//Chnages ends--------(implemented aging)
