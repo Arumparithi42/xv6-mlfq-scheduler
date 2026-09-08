@@ -812,21 +812,24 @@ void
 update_aging(void)
 {
   struct proc *p;
+  struct proc *running = myproc();
 
   for (p = proc; p < &proc[NPROC]; p++) {
+    if (p == running)
+      continue;
+
     acquire(&p->lock);
 
     if (p->state == RUNNABLE) {
-  	p->waiting_ticks++;
-	p->total_wait_ticks++; // Changes for statistics-------------
+      p->waiting_ticks++;
+      p->total_wait_ticks++;
 
-	if (p->waiting_ticks >= 50) {
-    		if (p->queue_level > 0) {
-      			p->queue_level--;
-    		}
+      if (p->waiting_ticks >= 50) {
+        if (p->queue_level > 0)
+          p->queue_level--;
 
-    		p->waiting_ticks = 0;
-  	}
+        p->waiting_ticks = 0;
+      }
     }
 
     release(&p->lock);

@@ -137,6 +137,7 @@ UPROGS=\
 	$U/_cpubench\
 	$U/_iobench\
 	$U/_cpubench_short\
+	$U/_cpubench_med\
 	$U/_grep\
 	$U/_init\
 	$U/_kill\
