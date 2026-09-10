@@ -1,0 +1,76 @@
+xv6 kernel is booting
+
+init: starting sh
+$ iobench
+I/O-bound process started
+I/O process: iteration 0
+I/O process: iteration 1
+I/O process: iteration 2
+I/O process: iteration 3
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=19 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 4
+I/O process: iteration 5
+I/O process: iteration 6
+I/O process: iteration 7
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=39 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 8
+I/O process: iteration 9
+I/O process: iteration 10
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=50 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 11
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 runble iobench Q0 used=0 cpu=1 wait=1 totalwait=59 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 12
+I/O process: iteration 13
+I/O process: iteration 14
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=71 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 15
+I/O process: iteration 16
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=82 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O process: iteration 17
+I/O process: iteration 18
+I/O process: iteration 19
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 sleep  iobench Q0 used=0 cpu=1 wait=0 totalwait=95 create=38 first=38 response=0 finish=0 turnaround=0
+
+I/O-bound process finished
+PID 3 finished: CPU=1 Wait=100 Response=0 Turnaround=101
