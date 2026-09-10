@@ -244,9 +244,7 @@ $ cpubench_med &
 $ iobench
 ```
 
-Record both processes' finish-line statistics. Repeat 3 times per version and use the median value per metric — see [Section 12](#12-notes-on-measurement-reliability).
-
----
+Sample test cases are showned in sampletest folder
 
 ## 11. Main Modified Files
 
@@ -272,43 +270,6 @@ The scheduler itself (`scheduler()`, `yield()`, `sched()`) is **completely unmod
 | `kernel/defs.h` | Declaration for `update_stats()` |
 | `Makefile` | `CPUS := 1`; same benchmark program entries as the MLFQ version |
 
-**`update_stats()` implementation note:** the currently-running process's lock is already held by `scheduler()` for its entire time slice. Re-acquiring it inside a full process-table scan (as an early version of this function did) corrupts state — it must be updated directly without a fresh `acquire()`, while every *other* process is safely locked individually to update its waiting-tick count.
-
-```c
-void
-update_stats(void)
-{
-  struct proc *p;
-  struct proc *running = myproc();
-
-  if (running != 0) {
-    running->cpu_ticks++;
-    if (running->first_run_tick == 0)
-      running->first_run_tick = ticks;
-  }
-
-  for (p = proc; p < &proc[NPROC]; p++) {
-    if (p == running)
-      continue;
-    acquire(&p->lock);
-    if (p->state == RUNNABLE) {
-      p->total_wait_ticks++;
-    }
-    release(&p->lock);
-  }
-}
-```
-
----
-
-## 12. Notes on Measurement Reliability
-
-- **Tick-sampling resolution:** `Response` is calculated from `first_run_tick`, which is only set when a timer interrupt happens to catch a process mid-execution. A process whose first burst of work completes faster than one tick interval may never be sampled as `RUNNING`, leaving `first_run_tick = 0` and producing a negative (meaningless) `Response` value on exit. This is a known limitation of tick-based accounting, not a functional bug.
-- **VM timing jitter:** running inside a VirtualBox VM (nested virtualization) introduces run-to-run variance in tick counts for identical workloads, since QEMU's access to host CPU time is not perfectly deterministic. To manage this, run each test **3 times** and use the median value (or discard clear outliers) rather than relying on a single run.
-- **`cpubench_short` is not a valid quantitative benchmark** — it finishes in ~1 tick, too fast for `CPU`/`Turnaround` accounting to meaningfully register. Use it only to confirm the binary builds and runs; use `cpubench_med` for all real measurements.
-
----
-
 ## 13. Summary Checklist
 
 - [x] New processes start in Q0
@@ -317,13 +278,3 @@ update_stats(void)
 - [x] Aging promotes starved processes after 50 waiting ticks
 - [x] CPU, Wait, Response, and Turnaround statistics recorded on process exit
 - [x] Identical measurement instrumentation added to baseline for fair comparison
-- [ ] Full 3-run comparison table (Original xv6 vs MLFQ) — in progress
-- [ ] Final report: methodology, results, analysis, limitations, conclusion
-
----
-
-## Author
-
-**Arumparithi B.**
-B.E. Computer Science and Engineering
-Madras Institute of Technology, Anna University, Chennai
