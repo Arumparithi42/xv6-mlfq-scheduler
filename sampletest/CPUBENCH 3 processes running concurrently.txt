@@ -1,0 +1,200 @@
+xv6 kernel is booting
+
+init: starting sh
+$ cpubench_med &
+PID 3 finished: CPU=0 Wait=0 Response=0 Turnaround=0
+$ Medium CPU-bound process started
+cpubench_med &
+PID 5 finished: CPU=0 Wait=0 Response=0 Turnaround=0
+$ Medium CPU-bound process started
+cpubench_med &
+PID 7 finished: CPU=0 Wait=0 Response=0 Turnaround=0
+$ Medium CPU-bound process started
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=13 cpu=25 wait=0 totalwait=24 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=12 wait=19 totalwait=23 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=12 wait=11 totalwait=13 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=8 cpu=36 wait=0 totalwait=24 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=12 wait=30 totalwait=34 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=12 wait=22 totalwait=24 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=3 cpu=47 wait=0 totalwait=24 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=12 wait=41 totalwait=45 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=12 wait=33 totalwait=35 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 runble cpubench_med Q2 used=12 cpu=56 wait=9 totalwait=33 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=20 wait=1 totalwait=55 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q1 used=1 cpu=13 wait=0 totalwait=52 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=1 cpu=61 wait=0 totalwait=40 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=20 wait=13 totalwait=67 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=20 wait=5 totalwait=57 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=14 cpu=74 wait=0 totalwait=40 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=20 wait=26 totalwait=80 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=20 wait=18 totalwait=70 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 run    cpubench_med Q2 used=12 cpu=88 wait=0 totalwait=40 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=20 wait=40 totalwait=94 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=20 wait=32 totalwait=84 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 runble cpubench_med Q2 used=6 cpu=98 wait=3 totalwait=43 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q1 used=3 cpu=23 wait=0 totalwait=104 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=20 wait=45 totalwait=97 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+4 runble cpubench_med Q2 used=6 cpu=98 wait=15 totalwait=55 create=23 first=23 response=0 finish=0 turnaround=0
+
+6 runble cpubench_med Q2 used=0 cpu=28 wait=7 totalwait=111 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q1 used=7 cpu=27 wait=0 totalwait=102 create=47 first=47 response=0 finish=0 turnaround=0
+
+Medium CPU-bound process finished
+PID 4 finished: CPU=109 Wait=56 Response=0 Turnaround=165
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=1 cpu=29 wait=0 totalwait=123 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=28 wait=12 totalwait=114 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=4 cpu=48 wait=0 totalwait=123 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=28 wait=31 totalwait=133 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=0 cpu=60 wait=0 totalwait=123 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=28 wait=43 totalwait=145 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=7 cpu=67 wait=0 totalwait=131 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=36 wait=0 totalwait=152 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=6 cpu=82 wait=0 totalwait=131 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=36 wait=15 totalwait=167 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+6 run    cpubench_med Q2 used=4 cpu=96 wait=0 totalwait=131 create=37 first=37 response=0 finish=0 turnaround=0
+
+8 runble cpubench_med Q2 used=0 cpu=36 wait=29 totalwait=181 create=47 first=47 response=0 finish=0 turnaround=0
+
+Medium CPU-bound process finished
+PID 6 finished: CPU=101 Wait=131 Response=0 Turnaround=232
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q2 used=12 cpu=48 wait=0 totalwait=186 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q2 used=10 cpu=62 wait=0 totalwait=186 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q2 used=7 cpu=75 wait=0 totalwait=186 create=47 first=47 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=2 create=1 first=1 response=0 finish=0 turnaround=0
+
+8 run    cpubench_med Q2 used=5 cpu=89 wait=0 totalwait=186 create=47 first=47 response=0 finish=0 turnaround=0
+
+Medium CPU-bound process finished
+PID 8 finished: CPU=100 Wait=186 Response=0 Turnaround=286
+QEMU: Terminated

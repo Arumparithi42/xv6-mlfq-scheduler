@@ -1,0 +1,100 @@
+init: starting sh
+$ cpubench
+CPU-bound process started
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q0 used=1 cpu=1 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q0 used=1 cpu=1 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q0 used=1 cpu=1 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q0 used=1 cpu=1 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q0 used=3 cpu=3 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=1 cpu=5 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q1 used=5 cpu=9 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q2 used=0 cpu=28 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
+
+
+1 sleep  init Q0 used=0 cpu=0 wait=0 totalwait=1 create=0 first=1 response=1 finish=0 turnaround=0
+
+2 sleep  sh Q0 used=0 cpu=0 wait=0 totalwait=0 create=1 first=1 response=0 finish=0 turnaround=0
+
+3 run    cpubench Q2 used=0 cpu=44 wait=0 totalwait=0 create=32 first=32 response=0 finish=0 turnaround=0
