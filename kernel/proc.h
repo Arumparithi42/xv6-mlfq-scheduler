@@ -82,24 +82,36 @@ enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 struct proc {
   struct spinlock lock;
 
-//Changes start----
-  int queue_level;
-  int ticks_used;
-  int waiting_ticks;
-//Changes end-----
-//Chnages start for statistics-------------
-uint cpu_ticks;
-uint total_wait_ticks;
-uint creation_tick;
-uint first_run_tick;
-uint finish_tick; //for TAT
-//Changes end for statistics------------
   // p->lock must be held when using these:
   enum procstate state; // Process state
   void *chan;           // If non-zero, sleeping on chan
   int killed;           // If non-zero, have been killed
   int xstate;           // Exit status to be returned to parent's wait
   int pid;              // Process ID
+
+  // MLFQ scheduling state (p->lock must be held; see sched.c).
+  int priority;        // Current queue level, 0 = highest
+  uint64 quantum_used; // Timebase cycles of the current quantum used
+  uint64 qseq;         // Position in its queue (smaller runs first)
+  uint64 age_since;    // Last ran or last promoted, for aging
+
+  // Scheduling statistics (p->lock must be held). Times are timebase
+  // cycles, i.e. values of r_time(); see proc_setstate().
+  uint64 state_since;        // When the process entered its current state
+  uint64 ctime;              // Creation time
+  uint64 first_run;          // First dispatch, 0 = not yet run
+  uint64 etime;              // Exit time
+  uint64 cpu_time;           // Total time RUNNING
+  uint64 wait_time;          // Total time RUNNABLE
+  uint64 sleep_time;         // Total time SLEEPING
+  uint64 level_time[NQUEUE]; // Time RUNNING at each level
+  uint64 max_wait;           // Longest single RUNNABLE period
+  int ndispatch;             // Times given the CPU
+  int nexpire;               // Full quanta used
+  int npreempt;              // Preempted by a higher-priority process
+  int nsleep;                // Times blocked in sleep()
+  int ndemote;               // Level decreases (Q0 -> Q1 -> Q2)
+  int npromote;              // Level increases by aging
 
   // wait_lock must be held when using this:
   struct proc *parent; // Parent process

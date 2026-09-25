@@ -13,6 +13,7 @@ OBJS = \
   $K/main.o \
   $K/vm.o \
   $K/proc.o \
+  $K/sched.o \
   $K/swtch.o \
   $K/trampoline.o \
   $K/trap.o \
@@ -78,6 +79,27 @@ CFLAGS += -fno-builtin-free
 CFLAGS += -fno-builtin-memcpy -Wno-main
 CFLAGS += -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf
 CFLAGS += -I.
+
+# Scheduler configuration (see kernel/param.h). Examples:
+#   make qemu SCHED=RR                  original xv6 round-robin scheduler
+#   make qemu QUANTA="2 4 8"            MLFQ quanta of Q0 Q1 Q2, in ticks
+#   make qemu AGING=100                 aging threshold in ticks (0 = off)
+SCHED ?= MLFQ
+ifeq ($(SCHED),RR)
+SCHEDFLAGS += -DSCHED_RR
+else ifneq ($(SCHED),MLFQ)
+$(error SCHED must be MLFQ or RR)
+endif
+ifdef QUANTA
+SCHEDFLAGS += -DQ0_QUANTUM=$(word 1,$(QUANTA)) -DQ1_QUANTUM=$(word 2,$(QUANTA)) -DQ2_QUANTUM=$(word 3,$(QUANTA))
+endif
+ifdef AGING
+SCHEDFLAGS += -DAGING_THRESHOLD=$(AGING)
+endif
+ifdef TICK_HZ
+SCHEDFLAGS += -DTICK_HZ=$(TICK_HZ)
+endif
+CFLAGS += $(SCHEDFLAGS)
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
 
 # Disable PIE when possible (for Ubuntu 16.10 toolchain)
@@ -89,6 +111,12 @@ CFLAGS += -fno-pie -nopie
 endif
 
 LDFLAGS = -z max-page-size=4096
+
+# Rebuild the kernel whenever the scheduler configuration changes.
+$K/schedflags: FORCE
+	@echo '$(SCHEDFLAGS)' | cmp -s - $@ || echo '$(SCHEDFLAGS)' > $@
+$(OBJS): $K/schedflags
+.PHONY: FORCE
 
 $K/kernel: $(OBJS) $K/kernel.ld
 	$(LD) $(LDFLAGS) -T $K/kernel.ld -o $K/kernel $(OBJS) 
@@ -129,15 +157,10 @@ mkfs/mkfs: mkfs/mkfs.c $K/fs.h $K/param.h
 # http://www.gnu.org/software/make/manual/html_node/Chained-Rules.html
 .PRECIOUS: %.o
 
-#Changes made----(added cpubench, iobench after the first tree commands)
 UPROGS=\
 	$U/_cat\
 	$U/_echo\
 	$U/_forktest\
-	$U/_cpubench\
-	$U/_iobench\
-	$U/_cpubench_short\
-	$U/_cpubench_med\
 	$U/_grep\
 	$U/_init\
 	$U/_kill\
@@ -155,6 +178,13 @@ UPROGS=\
 	$U/_forphan\
 	$U/_dorphan\
 	$U/_sync\
+	$U/_cpubench\
+	$U/_cpubench_med\
+	$U/_cpubench_short\
+	$U/_iobench\
+	$U/_schedtime\
+	$U/_schedtest\
+	$U/_mlfqexp\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
@@ -164,7 +194,7 @@ fs.img: mkfs/mkfs README $(UPROGS)
 clean: 
 	rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
 	*/*.o */*.d */*.asm */*.sym \
-	$K/kernel fs.img \
+	$K/kernel $K/schedflags fs.img \
 	mkfs/mkfs .gdbinit \
         $U/usys.S \
 	$(UPROGS)
@@ -175,8 +205,9 @@ GDBPORT = $(shell expr `id -u` % 5000 + 25000)
 QEMUGDB = $(shell if $(QEMU) -help | grep -q '^-gdb'; \
 	then echo "-gdb tcp::$(GDBPORT)"; \
 	else echo "-s -p $(GDBPORT)"; fi)
+# One CPU by default so that scheduling experiments are easy to
+# reason about and repeat. Use e.g. "make qemu CPUS=3" for SMP.
 ifndef CPUS
-#Changes made------------------(CPUS from 3 to 1)
 CPUS := 1
 endif
 
@@ -184,6 +215,7 @@ QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nogr
 QEMUOPTS += -global virtio-mmio.force-legacy=false
 QEMUOPTS += -drive file=fs.img,if=none,format=raw,id=x0
 QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+QEMUOPTS += $(QEMUEXTRA)
 
 qemu: check-qemu-version $K/kernel fs.img
 	$(QEMU) $(QEMUOPTS)

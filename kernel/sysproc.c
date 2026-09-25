@@ -33,7 +33,51 @@ sys_wait(void)
 {
   uint64 p;
   argaddr(0, &p);
-  return kwait(p);
+  return kwait(p, 0);
+}
+
+// int waitstat(int *status, struct procstat *st)
+// Like wait(), but also returns the child's scheduling statistics.
+uint64
+sys_waitstat(void)
+{
+  uint64 p, st;
+  argaddr(0, &p);
+  argaddr(1, &st);
+  return kwait(p, st);
+}
+
+// int getprocstat(int pid, struct procstat *st)
+// Scheduling statistics of a live process (pid 0 = caller).
+uint64
+sys_getprocstat(void)
+{
+  int pid;
+  uint64 st;
+  argint(0, &pid);
+  argaddr(1, &st);
+  return getprocstat(pid, st);
+}
+
+// int schedinfo(struct schedinfo *si)
+uint64
+sys_schedinfo(void)
+{
+  uint64 si;
+  argaddr(0, &si);
+  return schedinfo(si);
+}
+
+// int schedtrace(int enable, struct schedevent *buf, int max)
+uint64
+sys_schedtrace(void)
+{
+  int enable, max;
+  uint64 buf;
+  argint(0, &enable);
+  argaddr(1, &buf);
+  argint(2, &max);
+  return schedtrace(enable, buf, max);
 }
 
 uint64

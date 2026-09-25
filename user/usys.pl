@@ -43,3 +43,7 @@ entry("sbrk");
 entry("pause");
 entry("uptime");
 entry("sync");
+entry("getprocstat");
+entry("waitstat");
+entry("schedinfo");
+entry("schedtrace");

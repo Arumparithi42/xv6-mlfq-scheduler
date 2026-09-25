@@ -9,6 +9,7 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct procstat;
 
 // bio.c
 void            binit(void);
@@ -97,16 +98,24 @@ void            sched(void);
 void            sleep_prepare(void*);
 void            sleep(void);
 void            userinit(void);
-int             kwait(uint64);
+int             kwait(uint64, uint64);
 void            wakeup(void*);
 void            yield(void);
-//Changes start-----
-void timer_yield(void);
-void update_aging(void);
-//Chnages ends-----
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
+
+// sched.c
+void            schedinit(void);
+void            sched_cpu_online(void);
+void            sched_procinit(struct proc *);
+void            proc_setstate(struct proc *, int);
+struct proc *   sched_select(void);
+int             sched_tick(void);
+void            proc_getstat(struct proc *, struct procstat *);
+int             getprocstat(int, uint64);
+int             schedinfo(uint64);
+int             schedtrace(int, uint64, int);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

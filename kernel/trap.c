@@ -81,11 +81,10 @@ usertrap(void)
   if (killed(p))
     kexit(-1);
 
-//Changes starts----(yield to timer_yeild)
-  // give up the CPU if this is a timer interrupt.
-  if (which_dev == 2)
-    timer_yield();
-//Chnages ends----(yield to timer_yeild)
+  // give up the CPU if this is a timer interrupt and the
+  // scheduling policy says so (see sched_tick() in sched.c).
+  if (which_dev == 2 && sched_tick())
+    yield();
 
   prepare_return();
 
@@ -155,11 +154,10 @@ kerneltrap()
     panic("kerneltrap");
   }
 
-//Chnages starts------(yield to timer_yield)
-  // give up the CPU if this is a timer interrupt.
-  if (which_dev == 2 && myproc() != 0)
-    timer_yield();
-//Changes ends----(yield to timer_yeild)
+  // give up the CPU if this is a timer interrupt and the
+  // scheduling policy says so (see sched_tick() in sched.c).
+  if (which_dev == 2 && myproc() != 0 && sched_tick())
+    yield();
 
   // the yield() may have caused some traps to occur,
   // so restore trap registers for use by kernelvec.S's sepc instruction.
@@ -167,7 +165,6 @@ kerneltrap()
   w_sstatus(sstatus);
 }
 
-//Changes starts---------(replaced clockintr)
 void
 clockintr()
 {
@@ -176,14 +173,13 @@ clockintr()
     ticks++;
     wakeup(&ticks);
     release(&tickslock);
-
-    update_aging();
   }
 
-  w_stimecmp(r_time() + 1000000);
+  // ask for the next timer interrupt. this also clears
+  // the interrupt request. TICK_CYCLES is set in param.h
+  // (10 ms by default).
+  w_stimecmp(r_time() + TICK_CYCLES);
 }
-//Changes ends-------------(replaced clockintr)
-
 
 // check if it's an external interrupt or software interrupt,
 // and handle it.

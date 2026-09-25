@@ -1,18 +1,15 @@
+// cpubench_short
+// Short CPU-bound workload: 30 ms of CPU time (3 ticks). It finishes
+// within the Q0 quantum (4 ticks), so under MLFQ it is never demoted
+// and runs ahead of any long-running CPU-bound process.
+
 #include "kernel/types.h"
 #include "user/user.h"
+#include "user/bench.h"
 
 int
 main(void)
 {
-  volatile int x = 0;
-  int i;
-
-  printf("Short CPU-bound process started\n");
-
-  for(i = 0; i < 1000000000; i++)
-    x++;
-
-  printf("Short CPU-bound process finished\n");
-
+  burn_ms(30);
   exit(0);
 }
