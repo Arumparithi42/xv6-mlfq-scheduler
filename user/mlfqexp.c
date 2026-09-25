@@ -125,29 +125,36 @@ job_index(int pid, struct job *jobs)
   return -1;
 }
 
-// Wait for a job and send its statistics to the main process.
-static int
-collect(int fd, struct job *jobs)
-{
-  struct result r;
-  int status;
-  int pid = waitstat(&status, &r.st);
+static struct result results[MAXJOBS];
+static int nresults;
 
-  if (pid > 0) {
-    r.job = job_index(pid, jobs);
-    write(fd, &r, sizeof(r));
+// Wait for a job and record its statistics. The results are sent to
+// the main process only after the last job has finished: if the main
+// process had to run during the measurement (to read a pipe), it would
+// compete with the jobs (and, having printed a lot, it may be in Q2).
+static int
+collect(struct job *jobs)
+{
+  struct result *r = &results[nresults];
+  int status;
+  int pid = waitstat(&status, &r->st);
+
+  if (pid > 0 && nresults < MAXJOBS) {
+    r->job = job_index(pid, jobs);
+    nresults++;
   }
   return pid;
 }
 
 // The repetition driver: a fresh process (so it starts in Q0 with a
 // full quantum, whatever the main process did before) that starts the
-// jobs at their arrival times and reports their statistics on fd. It
-// does almost no work itself, so it does not disturb the measurement.
+// jobs at their arrival times, collects their statistics and, when all
+// have finished, sends them to the main process on fd. It does almost
+// no work itself, so it does not disturb the measurement.
 static void
 driver(int fd, struct job *jobs)
 {
-  njobs = 0;
+  njobs = nresults = 0;
   if (jobs) {
     int t_start = uptime();
     for (struct job *j = jobs; j->name; j++) {
@@ -156,7 +163,7 @@ driver(int fd, struct job *jobs)
         pause(due - uptime());
       start(j);
     }
-    while (collect(fd, jobs) > 0)
+    while (collect(jobs) > 0)
       ;
   } else {
     // aging: keep STREAM_JOBS stream jobs running for STREAM_MS.
@@ -165,10 +172,11 @@ driver(int fd, struct job *jobs)
     start(&aging_long);
     for (int i = 0; i < STREAM_JOBS; i++)
       start(&aging_stream);
-    while ((pid = collect(fd, 0)) > 0)
+    while ((pid = collect(0)) > 0)
       if (pid != pids[0] && uptime() < stop && njobs < MAXJOBS)
         start(&aging_stream);
   }
+  write(fd, results, nresults * sizeof(results[0]));
   exit(0);
 }
 
@@ -208,8 +216,6 @@ print_trace(int rep, uint64 t0, struct schedevent *ev, int n)
            e->to, e->prio);
   }
 }
-
-static struct result results[MAXJOBS];
 
 // Read exactly n bytes (a pipe read may return less). Returns 0 at EOF.
 static int
