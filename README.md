@@ -1050,6 +1050,9 @@ without starving long-running computation.
 
 ## 20. Build, run and test instructions
 
+For a step-by-step live demonstration (including setup on Kali Linux in
+VirtualBox), see [`docs/DEMO.md`](docs/DEMO.md).
+
 ### 20.1 Requirements
 
 A RISC-V cross compiler and QEMU ≥ 7.2. On Debian/Ubuntu:
