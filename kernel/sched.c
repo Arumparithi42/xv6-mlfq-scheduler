@@ -240,10 +240,16 @@ set_level(struct proc *p, int level)
 // it last ran (or was last promoted). Called for RUNNABLE processes
 // only; a process that slept is caught up when it becomes RUNNABLE.
 // Caller holds p->lock.
+//
+// The time must be read here, with p->lock held, and not once before
+// a scan of the process table: during the scan another CPU may stop
+// running p and set p->age_since to a later time, and the unsigned
+// difference below would then wrap around to a huge value.
 static void
-age(struct proc *p, uint64 now)
+age(struct proc *p)
 {
 #if AGING_THRESHOLD > 0
+  uint64 now = r_time();
   uint64 threshold = (uint64)AGING_THRESHOLD * TICK_CYCLES;
 
   if (p->priority > 0 && now - p->age_since >= threshold) {
@@ -277,13 +283,11 @@ sched_select(void)
   uint64 best_seq = 0;
 
   for (;;) {
-    uint64 now = r_time();
-
     best = 0;
     for (p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
       if (p->state == RUNNABLE) {
-        age(p, now);
+        age(p);
         if (best == 0 || p->priority < best_prio ||
             (p->priority == best_prio && p->qseq < best_seq)) {
           best = p;
@@ -311,7 +315,6 @@ static int
 higher_runnable(struct proc *self, int prio)
 {
   struct proc *p;
-  uint64 now = r_time();
   int found = 0;
 
   for (p = proc; p < &proc[NPROC]; p++) {
@@ -319,7 +322,7 @@ higher_runnable(struct proc *self, int prio)
       continue;
     acquire(&p->lock);
     if (p->state == RUNNABLE) {
-      age(p, now);
+      age(p);
       if (p->priority < prio)
         found = 1;
     }
