@@ -298,9 +298,15 @@ def fig_aging(data, fname):
         xs, ys = long_cpu_curve(jobs, events["aging"],
                                 pid_of(jobs, "aging", "long"))
         ax.plot(xs, ys, color=SERIES[i], linewidth=2, label=label)
-        ax.annotate(label, (xs[-1], ys[-1]), xytext=(4, 0),
-                    textcoords="offset points", fontsize=8, color=INK2,
-                    va="center")
+        if cfg == "aging0":
+            # The flat stretch is the starvation.
+            flat = max(range(1, len(xs)), key=lambda k: xs[k] - xs[k - 1]
+                       if ys[k] == ys[k - 1] else 0)
+            ax.annotate(f"aging off: no CPU for "
+                        f"{(xs[flat] - xs[flat - 1]) / 1000:.1f} s",
+                        ((xs[flat] + xs[flat - 1]) / 2, ys[flat]),
+                        xytext=(0, -14), textcoords="offset points",
+                        fontsize=8, color=INK2, ha="center")
     ax.axvline(2000, color=MUTED, linewidth=1, linestyle="--")
     ax.annotate("stream of new jobs stops", (2000, 20), xytext=(4, 0),
                 textcoords="offset points", fontsize=8, color=INK2)
@@ -308,6 +314,7 @@ def fig_aging(data, fname):
     style(ax, "Experiment 4: CPU received by the long job while short jobs "
               "keep arriving", "time (ms)", "CPU time received (ms)")
     ax.legend(frameon=False, fontsize=8, loc="upper left")
+    ax.set_xlim(0, None)
     save(fig, fname)
 
 

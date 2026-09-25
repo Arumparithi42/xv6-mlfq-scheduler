@@ -1,0 +1,295 @@
+# config=aging100 mode=icount makevars={'AGING': '100'}
+mlfqexp aging 3
+CONFIG policy=MLFQ quanta=4,8,16 aging=100 tick_us=10000 ncpu=1
+BEGIN exp=aging rep=1 driver=4
+JOB exp=aging rep=1 name=stream pid=6 arrive=374 first=39262 end=259443 cpu=100037 wait=159031 sleep=0 response=38888 turnaround=259069 maxwait=120142 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60007 q2=0
+JOB exp=aging rep=1 name=stream pid=7 arrive=747 first=79306 end=359715 cpu=100038 wait=258929 sleep=0 response=78559 turnaround=358968 maxwait=180370 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60008 q2=0
+JOB exp=aging rep=1 name=stream pid=8 arrive=260037 first=260053 end=460370 cpu=100033 wait=100300 sleep=0 response=16 turnaround=200333 maxwait=100284 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=1 name=stream pid=9 arrive=360309 first=360325 end=560479 cpu=100032 wait=100137 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=1 name=stream pid=10 arrive=460941 first=460957 end=661111 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60914 q2=0
+JOB exp=aging rep=1 name=stream pid=11 arrive=561050 first=561066 end=761222 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60916 q2=0
+JOB exp=aging rep=1 name=stream pid=12 arrive=661682 first=661698 end=861852 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38594 q1=61438 q2=0
+JOB exp=aging rep=1 name=stream pid=13 arrive=761793 first=761809 end=961961 cpu=100030 wait=100137 sleep=0 response=16 turnaround=200168 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38592 q1=61438 q2=0
+JOB exp=aging rep=1 name=stream pid=14 arrive=862423 first=862438 end=1062592 cpu=100033 wait=100136 sleep=0 response=15 turnaround=200169 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38071 q1=61961 q2=0
+JOB exp=aging rep=1 name=stream pid=15 arrive=962532 first=962548 end=1162704 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38069 q1=61965 q2=0
+JOB exp=aging rep=1 name=stream pid=16 arrive=1063163 first=1063179 end=1263333 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37548 q1=62485 q2=0
+JOB exp=aging rep=1 name=stream pid=17 arrive=1163276 first=1163291 end=1363446 cpu=100033 wait=100137 sleep=0 response=15 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37543 q1=62489 q2=0
+JOB exp=aging rep=1 name=stream pid=18 arrive=1263904 first=1263919 end=1544160 cpu=100033 wait=180223 sleep=0 response=15 turnaround=280256 maxwait=180207 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37024 q1=63008 q2=0
+JOB exp=aging rep=1 name=stream pid=19 arrive=1364018 first=1364033 end=1644274 cpu=100032 wait=180223 sleep=0 response=15 turnaround=280256 maxwait=180208 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37019 q1=63013 q2=0
+JOB exp=aging rep=1 name=stream pid=20 arrive=1544731 first=1544747 end=1744901 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36501 q1=63531 q2=0
+JOB exp=aging rep=1 name=stream pid=21 arrive=1644845 first=1644861 end=1845017 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36495 q1=63539 q2=0
+JOB exp=aging rep=1 name=stream pid=22 arrive=1745472 first=1745488 end=1945642 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35977 q1=64055 q2=0
+JOB exp=aging rep=1 name=stream pid=23 arrive=1845588 first=1845604 end=2045757 cpu=100030 wait=100137 sleep=0 response=16 turnaround=200169 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35969 q1=64061 q2=0
+JOB exp=aging rep=1 name=stream pid=24 arrive=1946213 first=1946228 end=2110547 cpu=100032 wait=64302 sleep=0 response=15 turnaround=164334 maxwait=64286 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35454 q1=64577 q2=0
+JOB exp=aging rep=1 name=long pid=5 arrive=0 first=763 end=2212158 cpu=300034 wait=1912123 sleep=0 response=763 turnaround=2212158 maxwait=1201641 dispatch=4 expire=3 preempt=0 nsleep=0 demote=3 promote=1 prio=2 q0=38486 q1=160148 q2=101399
+EV rep=1 t=0 pid=5 type=S from=1 to=3 prio=0
+EV rep=1 t=374 pid=6 type=S from=1 to=3 prio=0
+EV rep=1 t=747 pid=7 type=S from=1 to=3 prio=0
+EV rep=1 t=751 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=763 pid=5 type=S from=3 to=4 prio=0
+EV rep=1 t=39249 pid=5 type=L from=0 to=1 prio=0
+EV rep=1 t=39250 pid=5 type=S from=4 to=3 prio=1
+EV rep=1 t=39263 pid=6 type=S from=3 to=4 prio=0
+EV rep=1 t=79293 pid=6 type=L from=0 to=1 prio=0
+EV rep=1 t=79293 pid=6 type=S from=4 to=3 prio=1
+EV rep=1 t=79306 pid=7 type=S from=3 to=4 prio=0
+EV rep=1 t=119336 pid=7 type=L from=0 to=1 prio=0
+EV rep=1 t=119337 pid=7 type=S from=4 to=3 prio=1
+EV rep=1 t=119349 pid=5 type=S from=3 to=4 prio=1
+EV rep=1 t=199423 pid=5 type=L from=1 to=2 prio=1
+EV rep=1 t=199424 pid=5 type=S from=4 to=3 prio=2
+EV rep=1 t=199436 pid=6 type=S from=3 to=4 prio=1
+EV rep=1 t=259433 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=259443 pid=6 type=S from=4 to=5 prio=1
+EV rep=1 t=259456 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=260037 pid=8 type=S from=1 to=3 prio=0
+EV rep=1 t=260040 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=260053 pid=8 type=S from=3 to=4 prio=0
+EV rep=1 t=299694 pid=8 type=L from=0 to=1 prio=0
+EV rep=1 t=299695 pid=8 type=S from=4 to=3 prio=1
+EV rep=1 t=299707 pid=7 type=S from=3 to=4 prio=1
+EV rep=1 t=359705 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=359715 pid=7 type=S from=4 to=5 prio=1
+EV rep=1 t=359728 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=360309 pid=9 type=S from=1 to=3 prio=0
+EV rep=1 t=360312 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=360325 pid=9 type=S from=3 to=4 prio=0
+EV rep=1 t=399966 pid=9 type=L from=0 to=1 prio=0
+EV rep=1 t=399967 pid=9 type=S from=4 to=3 prio=1
+EV rep=1 t=399979 pid=8 type=S from=3 to=4 prio=1
+EV rep=1 t=460360 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=460370 pid=8 type=S from=4 to=5 prio=1
+EV rep=1 t=460383 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=460941 pid=10 type=S from=1 to=3 prio=0
+EV rep=1 t=460945 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=460957 pid=10 type=S from=3 to=4 prio=0
+EV rep=1 t=500075 pid=10 type=L from=0 to=1 prio=0
+EV rep=1 t=500076 pid=10 type=S from=4 to=3 prio=1
+EV rep=1 t=500088 pid=9 type=S from=3 to=4 prio=1
+EV rep=1 t=560469 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=560479 pid=9 type=S from=4 to=5 prio=1
+EV rep=1 t=560491 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=561050 pid=11 type=S from=1 to=3 prio=0
+EV rep=1 t=561053 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=561066 pid=11 type=S from=3 to=4 prio=0
+EV rep=1 t=600184 pid=11 type=L from=0 to=1 prio=0
+EV rep=1 t=600185 pid=11 type=S from=4 to=3 prio=1
+EV rep=1 t=600197 pid=10 type=S from=3 to=4 prio=1
+EV rep=1 t=661101 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=661111 pid=10 type=S from=4 to=5 prio=1
+EV rep=1 t=661124 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=661682 pid=12 type=S from=1 to=3 prio=0
+EV rep=1 t=661686 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=661698 pid=12 type=S from=3 to=4 prio=0
+EV rep=1 t=700293 pid=12 type=L from=0 to=1 prio=0
+EV rep=1 t=700293 pid=12 type=S from=4 to=3 prio=1
+EV rep=1 t=700306 pid=11 type=S from=3 to=4 prio=1
+EV rep=1 t=761212 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=761222 pid=11 type=S from=4 to=5 prio=1
+EV rep=1 t=761235 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=761793 pid=13 type=S from=1 to=3 prio=0
+EV rep=1 t=761797 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=761809 pid=13 type=S from=3 to=4 prio=0
+EV rep=1 t=800401 pid=13 type=L from=0 to=1 prio=0
+EV rep=1 t=800402 pid=13 type=S from=4 to=3 prio=1
+EV rep=1 t=800414 pid=12 type=S from=3 to=4 prio=1
+EV rep=1 t=861842 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=861852 pid=12 type=S from=4 to=5 prio=1
+EV rep=1 t=861864 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=862423 pid=14 type=S from=1 to=3 prio=0
+EV rep=1 t=862426 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=862439 pid=14 type=S from=3 to=4 prio=0
+EV rep=1 t=900510 pid=14 type=L from=0 to=1 prio=0
+EV rep=1 t=900511 pid=14 type=S from=4 to=3 prio=1
+EV rep=1 t=900523 pid=13 type=S from=3 to=4 prio=1
+EV rep=1 t=961951 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=961961 pid=13 type=S from=4 to=5 prio=1
+EV rep=1 t=961974 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=962532 pid=15 type=S from=1 to=3 prio=0
+EV rep=1 t=962536 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=962548 pid=15 type=S from=3 to=4 prio=0
+EV rep=1 t=1000618 pid=15 type=L from=0 to=1 prio=0
+EV rep=1 t=1000619 pid=15 type=S from=4 to=3 prio=1
+EV rep=1 t=1000631 pid=14 type=S from=3 to=4 prio=1
+EV rep=1 t=1062582 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1062592 pid=14 type=S from=4 to=5 prio=1
+EV rep=1 t=1062605 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1063163 pid=16 type=S from=1 to=3 prio=0
+EV rep=1 t=1063166 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1063179 pid=16 type=S from=3 to=4 prio=0
+EV rep=1 t=1100727 pid=16 type=L from=0 to=1 prio=0
+EV rep=1 t=1100728 pid=16 type=S from=4 to=3 prio=1
+EV rep=1 t=1100740 pid=15 type=S from=3 to=4 prio=1
+EV rep=1 t=1162694 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1162705 pid=15 type=S from=4 to=5 prio=1
+EV rep=1 t=1162717 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1163276 pid=17 type=S from=1 to=3 prio=0
+EV rep=1 t=1163279 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1163292 pid=17 type=S from=3 to=4 prio=0
+EV rep=1 t=1200835 pid=17 type=L from=0 to=1 prio=0
+EV rep=1 t=1200836 pid=17 type=S from=4 to=3 prio=1
+EV rep=1 t=1200837 pid=5 type=L from=2 to=1 prio=2
+EV rep=1 t=1200848 pid=16 type=S from=3 to=4 prio=1
+EV rep=1 t=1263323 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1263333 pid=16 type=S from=4 to=5 prio=1
+EV rep=1 t=1263345 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1263904 pid=18 type=S from=1 to=3 prio=0
+EV rep=1 t=1263907 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1263920 pid=18 type=S from=3 to=4 prio=0
+EV rep=1 t=1300944 pid=18 type=L from=0 to=1 prio=0
+EV rep=1 t=1300945 pid=18 type=S from=4 to=3 prio=1
+EV rep=1 t=1300957 pid=17 type=S from=3 to=4 prio=1
+EV rep=1 t=1363436 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1363446 pid=17 type=S from=4 to=5 prio=1
+EV rep=1 t=1363459 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1364018 pid=19 type=S from=1 to=3 prio=0
+EV rep=1 t=1364021 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1364034 pid=19 type=S from=3 to=4 prio=0
+EV rep=1 t=1401053 pid=19 type=L from=0 to=1 prio=0
+EV rep=1 t=1401053 pid=19 type=S from=4 to=3 prio=1
+EV rep=1 t=1401066 pid=5 type=S from=3 to=4 prio=1
+EV rep=1 t=1481140 pid=5 type=L from=1 to=2 prio=1
+EV rep=1 t=1481140 pid=5 type=S from=4 to=3 prio=2
+EV rep=1 t=1481153 pid=18 type=S from=3 to=4 prio=1
+EV rep=1 t=1544150 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1544160 pid=18 type=S from=4 to=5 prio=1
+EV rep=1 t=1544173 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1544731 pid=20 type=S from=1 to=3 prio=0
+EV rep=1 t=1544735 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1544747 pid=20 type=S from=3 to=4 prio=0
+EV rep=1 t=1581249 pid=20 type=L from=0 to=1 prio=0
+EV rep=1 t=1581249 pid=20 type=S from=4 to=3 prio=1
+EV rep=1 t=1581262 pid=19 type=S from=3 to=4 prio=1
+EV rep=1 t=1644264 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1644274 pid=19 type=S from=4 to=5 prio=1
+EV rep=1 t=1644287 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1644845 pid=21 type=S from=1 to=3 prio=0
+EV rep=1 t=1644849 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1644861 pid=21 type=S from=3 to=4 prio=0
+EV rep=1 t=1681357 pid=21 type=L from=0 to=1 prio=0
+EV rep=1 t=1681357 pid=21 type=S from=4 to=3 prio=1
+EV rep=1 t=1681370 pid=20 type=S from=3 to=4 prio=1
+EV rep=1 t=1744891 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1744901 pid=20 type=S from=4 to=5 prio=1
+EV rep=1 t=1744914 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1745472 pid=22 type=S from=1 to=3 prio=0
+EV rep=1 t=1745475 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1745488 pid=22 type=S from=3 to=4 prio=0
+EV rep=1 t=1781466 pid=22 type=L from=0 to=1 prio=0
+EV rep=1 t=1781466 pid=22 type=S from=4 to=3 prio=1
+EV rep=1 t=1781479 pid=21 type=S from=3 to=4 prio=1
+EV rep=1 t=1845007 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1845017 pid=21 type=S from=4 to=5 prio=1
+EV rep=1 t=1845030 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1845589 pid=23 type=S from=1 to=3 prio=0
+EV rep=1 t=1845592 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1845604 pid=23 type=S from=3 to=4 prio=0
+EV rep=1 t=1881574 pid=23 type=L from=0 to=1 prio=0
+EV rep=1 t=1881575 pid=23 type=S from=4 to=3 prio=1
+EV rep=1 t=1881587 pid=22 type=S from=3 to=4 prio=1
+EV rep=1 t=1945632 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=1945642 pid=22 type=S from=4 to=5 prio=1
+EV rep=1 t=1945654 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=1946213 pid=24 type=S from=1 to=3 prio=0
+EV rep=1 t=1946216 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=1946229 pid=24 type=S from=3 to=4 prio=0
+EV rep=1 t=1981683 pid=24 type=L from=0 to=1 prio=0
+EV rep=1 t=1981684 pid=24 type=S from=4 to=3 prio=1
+EV rep=1 t=1981696 pid=23 type=S from=3 to=4 prio=1
+EV rep=1 t=2045747 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2045757 pid=23 type=S from=4 to=5 prio=1
+EV rep=1 t=2045769 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2045958 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2045970 pid=24 type=S from=3 to=4 prio=1
+EV rep=1 t=2110537 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2110547 pid=24 type=S from=4 to=5 prio=1
+EV rep=1 t=2110559 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2110747 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2110760 pid=5 type=S from=3 to=4 prio=2
+EV rep=1 t=2212148 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2212158 pid=5 type=S from=4 to=5 prio=2
+EV rep=1 t=2212170 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2212539 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2212550 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2212562 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2212602 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2212737 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2212749 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2212931 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2212942 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2212954 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2212986 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2213129 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2213141 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2213323 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2213334 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2213346 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2213370 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2213521 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2213533 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2213715 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2213726 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2213738 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2213755 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2213913 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2213925 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2214107 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2214118 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2214130 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2214139 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2214305 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2214317 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2214499 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2214510 pid=4 type=S from=4 to=2 prio=0
+EV rep=1 t=2214522 pid=3 type=S from=3 to=4 prio=0
+EV rep=1 t=2214562 pid=4 type=S from=2 to=3 prio=0
+EV rep=1 t=2214697 pid=3 type=S from=4 to=2 prio=0
+EV rep=1 t=2214709 pid=4 type=S from=3 to=4 prio=0
+EV rep=1 t=2214755 pid=3 type=S from=2 to=3 prio=0
+EV rep=1 t=2214801 pid=4 type=S from=4 to=5 prio=0
+EV rep=1 t=2214813 pid=3 type=S from=3 to=4 prio=0
+END exp=aging rep=1
+BEGIN exp=aging rep=2 driver=25
+JOB exp=aging rep=2 name=stream pid=27 arrive=374 first=39262 end=259442 cpu=100037 wait=159031 sleep=0 response=38888 turnaround=259068 maxwait=120142 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60007 q2=0
+JOB exp=aging rep=2 name=stream pid=28 arrive=747 first=79306 end=359714 cpu=100038 wait=258928 sleep=0 response=78559 turnaround=358967 maxwait=180369 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60008 q2=0
+JOB exp=aging rep=2 name=stream pid=29 arrive=260036 first=260052 end=460369 cpu=100033 wait=100300 sleep=0 response=16 turnaround=200333 maxwait=100284 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=2 name=stream pid=30 arrive=360308 first=360324 end=560478 cpu=100032 wait=100137 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=2 name=stream pid=31 arrive=460940 first=460956 end=661110 cpu=100033 wait=100137 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60915 q2=0
+JOB exp=aging rep=2 name=stream pid=32 arrive=561049 first=561065 end=761221 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60916 q2=0
+JOB exp=aging rep=2 name=stream pid=33 arrive=661681 first=661697 end=861851 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38594 q1=61438 q2=0
+JOB exp=aging rep=2 name=stream pid=34 arrive=761792 first=761808 end=961960 cpu=100030 wait=100137 sleep=0 response=16 turnaround=200168 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38592 q1=61438 q2=0
+JOB exp=aging rep=2 name=stream pid=35 arrive=862422 first=862438 end=1062591 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200169 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38071 q1=61961 q2=0
+JOB exp=aging rep=2 name=stream pid=36 arrive=962532 first=962548 end=1162704 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38069 q1=61965 q2=0
+JOB exp=aging rep=2 name=stream pid=37 arrive=1063162 first=1063178 end=1263332 cpu=100033 wait=100137 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37548 q1=62485 q2=0
+JOB exp=aging rep=2 name=stream pid=38 arrive=1163275 first=1163291 end=1363446 cpu=100033 wait=100137 sleep=0 response=16 turnaround=200171 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37543 q1=62489 q2=0
+JOB exp=aging rep=2 name=stream pid=39 arrive=1263903 first=1263919 end=1544160 cpu=100033 wait=180223 sleep=0 response=16 turnaround=280257 maxwait=180207 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37024 q1=63008 q2=0
+JOB exp=aging rep=2 name=stream pid=40 arrive=1364017 first=1364033 end=1644273 cpu=100032 wait=180224 sleep=0 response=16 turnaround=280256 maxwait=180208 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37019 q1=63013 q2=0
+JOB exp=aging rep=2 name=stream pid=41 arrive=1544731 first=1544746 end=1744900 cpu=100033 wait=100136 sleep=0 response=15 turnaround=200169 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36501 q1=63531 q2=0
+JOB exp=aging rep=2 name=stream pid=42 arrive=1644845 first=1644861 end=1845017 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36495 q1=63539 q2=0
+JOB exp=aging rep=2 name=stream pid=43 arrive=1745471 first=1745487 end=1945641 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35978 q1=64055 q2=0
+JOB exp=aging rep=2 name=stream pid=44 arrive=1845588 first=1845604 end=2045756 cpu=100031 wait=100137 sleep=0 response=16 turnaround=200168 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35969 q1=64061 q2=0
+JOB exp=aging rep=2 name=stream pid=45 arrive=1946212 first=1946228 end=2110546 cpu=100032 wait=64302 sleep=0 response=16 turnaround=164334 maxwait=64286 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35454 q1=64577 q2=0
+JOB exp=aging rep=2 name=long pid=26 arrive=0 first=763 end=2212158 cpu=300033 wait=1912124 sleep=0 response=763 turnaround=2212158 maxwait=1201642 dispatch=4 expire=3 preempt=0 nsleep=0 demote=3 promote=1 prio=2 q0=38486 q1=160147 q2=101400
+END exp=aging rep=2
+BEGIN exp=aging rep=3 driver=46
+JOB exp=aging rep=3 name=stream pid=48 arrive=373 first=39262 end=259442 cpu=100037 wait=159031 sleep=0 response=38889 turnaround=259069 maxwait=120142 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60007 q2=0
+JOB exp=aging rep=3 name=stream pid=49 arrive=747 first=79305 end=359714 cpu=100038 wait=258928 sleep=0 response=78558 turnaround=358967 maxwait=180370 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=40030 q1=60008 q2=0
+JOB exp=aging rep=3 name=stream pid=50 arrive=260036 first=260052 end=460370 cpu=100033 wait=100300 sleep=0 response=16 turnaround=200334 maxwait=100284 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=3 name=stream pid=51 arrive=360308 first=360324 end=560478 cpu=100032 wait=100137 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39641 q1=60391 q2=0
+JOB exp=aging rep=3 name=stream pid=52 arrive=460940 first=460956 end=661111 cpu=100033 wait=100137 sleep=0 response=16 turnaround=200171 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60914 q2=0
+JOB exp=aging rep=3 name=stream pid=53 arrive=561049 first=561065 end=761221 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=39118 q1=60916 q2=0
+JOB exp=aging rep=3 name=stream pid=54 arrive=661681 first=661697 end=861851 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38594 q1=61438 q2=0
+JOB exp=aging rep=3 name=stream pid=55 arrive=761792 first=761808 end=961961 cpu=100030 wait=100137 sleep=0 response=16 turnaround=200169 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38592 q1=61438 q2=0
+JOB exp=aging rep=3 name=stream pid=56 arrive=862422 first=862438 end=1062591 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200169 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38071 q1=61961 q2=0
+JOB exp=aging rep=3 name=stream pid=57 arrive=962532 first=962548 end=1162704 cpu=100034 wait=100137 sleep=0 response=16 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=38069 q1=61965 q2=0
+JOB exp=aging rep=3 name=stream pid=58 arrive=1063162 first=1063178 end=1263332 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37548 q1=62485 q2=0
+JOB exp=aging rep=3 name=stream pid=59 arrive=1163275 first=1163291 end=1363446 cpu=100033 wait=100137 sleep=0 response=16 turnaround=200171 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37543 q1=62489 q2=0
+JOB exp=aging rep=3 name=stream pid=60 arrive=1263903 first=1263919 end=1544160 cpu=100033 wait=180223 sleep=0 response=16 turnaround=280257 maxwait=180207 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37024 q1=63008 q2=0
+JOB exp=aging rep=3 name=stream pid=61 arrive=1364017 first=1364033 end=1644273 cpu=100032 wait=180224 sleep=0 response=16 turnaround=280256 maxwait=180208 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=37019 q1=63013 q2=0
+JOB exp=aging rep=3 name=stream pid=62 arrive=1544731 first=1544746 end=1744900 cpu=100033 wait=100136 sleep=0 response=15 turnaround=200169 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36501 q1=63531 q2=0
+JOB exp=aging rep=3 name=stream pid=63 arrive=1644845 first=1644860 end=1845017 cpu=100034 wait=100137 sleep=0 response=15 turnaround=200172 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=36495 q1=63539 q2=0
+JOB exp=aging rep=3 name=stream pid=64 arrive=1745471 first=1745487 end=1945641 cpu=100033 wait=100136 sleep=0 response=16 turnaround=200170 maxwait=100120 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35978 q1=64055 q2=0
+JOB exp=aging rep=3 name=stream pid=65 arrive=1845588 first=1845604 end=2045756 cpu=100030 wait=100137 sleep=0 response=16 turnaround=200168 maxwait=100121 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35969 q1=64061 q2=0
+JOB exp=aging rep=3 name=stream pid=66 arrive=1946212 first=1946228 end=2110546 cpu=100032 wait=64302 sleep=0 response=16 turnaround=164334 maxwait=64286 dispatch=2 expire=1 preempt=0 nsleep=0 demote=1 promote=0 prio=1 q0=35454 q1=64577 q2=0
+JOB exp=aging rep=3 name=long pid=47 arrive=0 first=763 end=2212157 cpu=300033 wait=1912123 sleep=0 response=763 turnaround=2212157 maxwait=1201642 dispatch=4 expire=3 preempt=0 nsleep=0 demote=3 promote=1 prio=2 q0=38486 q1=160147 q2=101399
+END exp=aging rep=3

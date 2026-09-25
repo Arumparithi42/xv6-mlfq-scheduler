@@ -1,0 +1,16 @@
+schedtest
+schedtest: policy MLFQ, 1 CPU(s), tick 10000 us, quanta 4/8/16, aging 25
+test fork_wait: OK
+test many: OK
+test sleep: OK
+test kill: OK
+test new_q0: OK
+test demotion: OK
+test io_bound: OK
+test gaming: OK
+test trace: OK
+test preemption: OK
+test round_robin: OK
+test aging: OK
+test idle_promotion: OK
+schedtest: ALL TESTS PASSED

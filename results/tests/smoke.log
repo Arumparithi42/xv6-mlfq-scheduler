@@ -1,0 +1,36 @@
+echo hello xv6
+hello xv6
+ls README
+README         2 2 2441
+forktest
+fork test
+fork test OK
+schedtime cpubench_short
+pid 68 cpubench_short: Q0 cpu=33.4 wait=0.4 sleep=0.9 response=0.1 turnaround=34.8 ms  dispatch=6 demote=0 promote=0
+schedtime cpubench_med
+pid 70 cpubench_med: Q2 cpu=303.1 wait=0.7 sleep=0.8 response=0.1 turnaround=304.7 ms  dispatch=9 demote=2 promote=0
+schedtime -n 3 cpubench_med
+pid 72 cpubench_med: Q2 cpu=302.3 wait=574.0 sleep=0.0 response=0.5 turnaround=876.4 ms  dispatch=4 demote=2 promote=0
+pid 73 cpubench_med: Q2 cpu=302.4 wait=605.7 sleep=0.0 response=43.7 turnaround=908.1 ms  dispatch=4 demote=2 promote=0
+pid 74 cpubench_med: Q2 cpu=302.4 wait=636.3 sleep=0.0 response=84.4 turnaround=938.8 ms  dispatch=4 demote=2 promote=0
+schedtime iobench 20
+pid 76 iobench: Q0 cpu=15.8 wait=3.0 sleep=181.5 response=0.1 turnaround=200.5 ms  dispatch=26 demote=0 promote=0
+schedtime cpubench 200
+pid 78 cpubench: Q2 cpu=203.0 wait=0.6 sleep=0.6 response=0.1 turnaround=204.3 ms  dispatch=8 demote=2 promote=0
+cpubench &
+[Ctrl-P]
+1 sleep  init Q0 qused=20 cpu=20 wait=40 sleep=2028 disp=25 demote=0 promote=0
+2 sleep  sh Q0 qused=32 cpu=32 wait=41 sleep=1989 disp=29 demote=0 promote=0
+80 run    cpubench Q1 qused=6 cpu=44 wait=3 sleep=0 disp=2 demote=1 promote=0
+[Ctrl-P]
+1 sleep  init Q0 qused=20 cpu=20 wait=40 sleep=2028 disp=25 demote=0 promote=0
+2 sleep  sh Q0 qused=32 cpu=32 wait=41 sleep=1989 disp=29 demote=0 promote=0
+80 run    cpubench Q2 qused=71 cpu=352 wait=3 sleep=0 disp=4 demote=2 promote=0
+[Ctrl-P]
+1 sleep  init Q0 qused=20 cpu=20 wait=40 sleep=2028 disp=25 demote=0 promote=0
+2 sleep  sh Q0 qused=32 cpu=32 wait=41 sleep=1989 disp=29 demote=0 promote=0
+80 run    cpubench Q2 qused=51 cpu=658 wait=4 sleep=0 disp=6 demote=2 promote=0
+kill 80
+[Ctrl-P after kill]
+1 sleep  init Q0 qused=20 cpu=20 wait=40 sleep=3032 disp=26 demote=0 promote=0
+2 sleep  sh Q0 qused=33 cpu=33 wait=44 sleep=2979 disp=31 demote=0 promote=0

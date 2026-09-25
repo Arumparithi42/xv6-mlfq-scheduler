@@ -1,0 +1,8 @@
+schedtest
+schedtest: policy RR, 1 CPU(s), tick 10000 us
+test fork_wait: OK
+test many: OK
+test sleep: OK
+test kill: OK
+test new_q0: OK
+schedtest: ALL TESTS PASSED

@@ -1,0 +1,9 @@
+schedtest mlfq-1cpu  PASS
+schedtest mlfq-3cpu  PASS
+schedtest rr-1cpu    PASS
+schedtest rr-3cpu    PASS
+schedtest q2-4-8     PASS
+schedtest q8-16-32   PASS
+schedtest aging0     PASS
+schedtest aging25    PASS
+smoke session       PASS
