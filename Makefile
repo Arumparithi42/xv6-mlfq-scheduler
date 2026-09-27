@@ -215,6 +215,13 @@ QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nogr
 QEMUOPTS += -global virtio-mmio.force-legacy=false
 QEMUOPTS += -drive file=fs.img,if=none,format=raw,id=x0
 QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+# make qemu ICOUNT=1: deterministic clock. QEMU's virtual time then
+# advances with the number of executed instructions instead of host
+# time, so pauses of the host or of a virtual machine running QEMU
+# (e.g. VirtualBox) do not disturb xv6's timing and statistics.
+ifeq ($(ICOUNT),1)
+QEMUOPTS += -icount shift=0,sleep=off
+endif
 QEMUOPTS += $(QEMUEXTRA)
 
 qemu: check-qemu-version $K/kernel fs.img

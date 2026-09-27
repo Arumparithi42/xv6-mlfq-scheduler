@@ -6,6 +6,12 @@
   2. A smoke-test session exercising the shell, the benchmark programs,
      background jobs, Ctrl-P and kill on the default kernel.
 
+QEMU runs with the deterministic clock (make qemu ICOUNT=1): the timing
+checks in schedtest compare measured times with the quanta to within a
+tick, and with the normal clock any pause of QEMU by the host (for
+example when this runs inside a virtual machine) is measured as CPU
+time and can make them fail.
+
 The upstream xv6 test suite is run separately with ./test-xv6.py.
 """
 
@@ -44,7 +50,7 @@ def main():
     ok = True
     summary = []
     for name, makevars in SCHEDTEST:
-        xv6 = XV6(makevars)
+        xv6 = XV6(makevars, icount=True)
         try:
             out = xv6.run("schedtest", timeout=600)
         finally:
@@ -58,7 +64,7 @@ def main():
         print(line, flush=True)
 
     # Smoke test on the default kernel.
-    xv6 = XV6()
+    xv6 = XV6(icount=True)
     log = []
     try:
         for cmd in SMOKE:
@@ -71,7 +77,14 @@ def main():
         pids = re.findall(r"^(\d+) \S+\s+cpubench", log[-1], re.M)
         if pids:
             log.append(xv6.run(f"kill {pids[-1]}"))
-            log.append("[Ctrl-P after kill]" + xv6.send(b"\x10", wait=0.5))
+            # kill() only marks the process; it exits at its next timer
+            # interrupt. Give it time to do so.
+            for _ in range(5):
+                out = xv6.send(b"\x10", wait=1.0)
+                if not re.search(r"^\d+ (run|runble|sleep)\s+cpubench", out,
+                                 re.M):
+                    break
+            log.append("[Ctrl-P after kill]" + out)
     finally:
         xv6.close()
     smoke = "".join(log)
@@ -79,7 +92,10 @@ def main():
         f.write(smoke)
     smoke_ok = ("hello xv6" in smoke and "fork test OK" in smoke and
                 smoke.count("turnaround=") == 7 and
-                "cpubench" not in smoke.split("[Ctrl-P after kill]")[-1])
+                # After kill, cpubench must be gone or a zombie (it has
+                # exited and is waiting to be reaped by init).
+                not re.search(r"^\d+ (run|runble|sleep)\s+cpubench",
+                              smoke.split("[Ctrl-P after kill]")[-1], re.M))
     ok &= smoke_ok
     line = f"smoke session       {'PASS' if smoke_ok else 'FAIL'}"
     summary.append(line)

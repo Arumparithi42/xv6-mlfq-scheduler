@@ -51,7 +51,32 @@ make
 `make` should finish without errors (a linker warning about "RWX
 permissions" is normal for xv6).
 
-### A.4 Rehearse once
+### A.4 Always use the deterministic clock inside VirtualBox
+
+Run xv6 with **`make qemu ICOUNT=1`** (and `make qemu SCHED=RR ICOUNT=1`
+and so on) for the whole demonstration.
+
+Why: VirtualBox regularly pauses the VM for short moments (much more
+often when Windows has Hyper-V enabled, which makes VirtualBox show a
+green turtle icon). With the normal clock, QEMU's time keeps running
+during those pauses. xv6 then charges the paused time as CPU time to
+whatever process was running, and timer ticks arrive late. The
+scheduler still works, but its measurements and the timing tests in
+`schedtest` go wrong. For example, you might see
+`FAILED sleep/wakeup: sleep time is not 20 ticks` or
+`FAILED scheduler trace: missing Q0->Q1->Q2 events`.
+
+With `ICOUNT=1`, QEMU's clock counts executed instructions instead of
+real time: when the VM is paused, xv6's clock is paused too. (We tested
+this by freezing QEMU for 150 ms out of every 300 ms: every test still
+passes.) `schedtest` prints a `WARNING: the emulated clock is
+irregular` message when it detects the problem.
+
+Side effect: while xv6 is idle at the `$` prompt, QEMU keeps one CPU of
+the VM busy (it fast-forwards the idle time). That is why the VM should
+have at least 2 CPUs.
+
+### A.5 Rehearse once
 
 Run through Part B completely at least once, and run `schedtest` once
 (section B.3) to make sure everything passes in your VM.
@@ -100,7 +125,7 @@ it."*
 ### B.2 Boot xv6 with the MLFQ scheduler
 
 ```bash
-make qemu
+make qemu ICOUNT=1
 ```
 
 Expected:
@@ -191,8 +216,8 @@ Leave it running and start a second one:
 $ cpubench &
 ```
 
-**Wait about 2 seconds**, then press Ctrl-P: both `cpubench` lines
-should show `Q2`. This step matters: a newly started CPU-bound process
+**Wait a few seconds**, then press Ctrl-P: both `cpubench` lines
+should show `Q2` (if not, wait a little longer and press Ctrl-P again). This step matters: a newly started CPU-bound process
 is treated as interactive until it has used its Q0 and Q1 quanta.
 
 ### B.5 A short job while the CPU is busy
@@ -242,7 +267,7 @@ Exit QEMU: press **Ctrl-A**, release, then press **X**.
 The same source tree builds the original round-robin scheduler:
 
 ```bash
-make qemu SCHED=RR
+make qemu SCHED=RR ICOUNT=1
 ```
 
 (It rebuilds the kernel automatically.) Repeat B.4 to B.6 exactly:
@@ -250,7 +275,7 @@ make qemu SCHED=RR
 ```
 $ cpubench &
 $ cpubench &
-      (wait 2 seconds)
+      (wait a few seconds)
 $ schedtime cpubench_short
 $ schedtime iobench 20
 ```
@@ -283,7 +308,7 @@ of 100 ms jobs that keep Q0 and Q1 busy for 2 seconds. First with the
 default aging (threshold 50 ticks):
 
 ```bash
-make qemu
+make qemu ICOUNT=1
 ```
 
 ```
@@ -299,7 +324,7 @@ JOB exp=aging rep=1 name=long ... turnaround=2130090 maxwait=712912 ... demote=4
 Exit (Ctrl-A, X), then the same with aging switched off:
 
 ```bash
-make qemu AGING=0
+make qemu AGING=0 ICOUNT=1
 ```
 
 ```
@@ -318,7 +343,7 @@ whole time the stream lasted: starvation. With aging it was promoted
 twice (`promote=2`) and never waited more than 0.71 s, which is the
 500 ms threshold plus the time to get its turn in Q1."*
 
-Exit (Ctrl-A, X) and rebuild the default configuration: `make qemu`.
+Exit (Ctrl-A, X) and rebuild the default configuration: `make qemu ICOUNT=1`.
 
 ### B.10 The controlled experiments (show results, optionally re-run)
 
@@ -401,3 +426,6 @@ favours short and interactive work.
 | `mkfs: ... assertion` or a strange build error | `make clean` then `make` |
 | Numbers differ a little from this guide | Normal: timing depends on the machine. The MLFQ-vs-RR differences stay large. |
 | Short job looks slow under MLFQ | You did not wait for the `cpubench` processes to reach Q2 (B.4); check with Ctrl-P |
+| `schedtest` prints `WARNING: the emulated clock is irregular`, or tests such as `sleep`, `trace`, `demotion` or `aging` fail | QEMU is being paused by VirtualBox. Exit and use `make qemu ICOUNT=1` (A.4). |
+| `exec $ failed` | The `$` prompt was typed or pasted as part of the command. Type only `schedtest`. |
+| The VM is slow or the fan is loud while xv6 is idle | Normal with `ICOUNT=1` (A.4). Give the VM 2+ CPUs, and exit QEMU when not demonstrating. |

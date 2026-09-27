@@ -246,6 +246,7 @@ overridden from `make`:
 | `AGING_THRESHOLD` | 50 ticks | `AGING=` (0 = off) | Promote after this long without running |
 | `SCHED_RR` | not set | `SCHED=RR` | Build the original round-robin scheduler |
 | `CPUS` | 1 | `CPUS=` | CPUs given to QEMU (stock xv6: 3) |
+| – | off | `ICOUNT=1` | Deterministic QEMU clock (recommended inside a virtual machine, see §17) |
 
 Why these values:
 
@@ -983,6 +984,19 @@ instead of bunched together, which lowers the mean turnaround.
   up between ticks for any reason other than the timer waits for the
   next tick. (Timer-driven wakeups, which are the most common kind in
   xv6, are served in the same interrupt.)
+* **Host pauses count as CPU time (real-time clock).** With the normal
+  QEMU clock, xv6's time follows the host's real time. If QEMU is
+  paused, for example because it runs inside a virtual machine
+  (VirtualBox, especially with Hyper-V enabled) that the host
+  deschedules for tens of milliseconds, the pause is charged to
+  whichever process was running, and timer ticks arrive late. The
+  statistics and the timing tests in `schedtest` then go wrong
+  (`schedtest` detects this and prints a warning). Simulating such
+  pauses (freezing QEMU for 150 ms out of every 300 ms) reproduced the
+  failures. With `make qemu ICOUNT=1`, QEMU's clock counts instructions
+  instead, and all tests passed under the same pauses. Its cost is
+  that QEMU keeps one host CPU busy while xv6 is idle. Real kernels
+  have the same problem inside VMs and account for it as "steal time".
 * **O(NPROC) scans.** The scheduler and the per-tick check scan the
   whole process table (64 entries), as the original xv6 scheduler
   does. That is fine for xv6, but a real kernel would use per-level run
@@ -1079,7 +1093,7 @@ make qemu SCHED=RR                 # original xv6 round-robin scheduler
 make qemu QUANTA="2 4 8"           # MLFQ quanta of Q0, Q1, Q2 in ticks
 make qemu AGING=100                # aging threshold in ticks (0 = off)
 make qemu CPUS=3                   # three CPUs
-make qemu QEMUEXTRA="-icount shift=0,sleep=off"   # deterministic clock
+make qemu ICOUNT=1                 # deterministic clock (use this inside VirtualBox etc.)
 ```
 
 ### 20.3 Things to try at the xv6 prompt
@@ -1115,6 +1129,11 @@ $ schedtest                           # functional tests
 | `aging`\*† | A job starved by a stream of short jobs is promoted, and never waits more than 2 × the aging threshold |
 | `idle_promotion`\*† | A Q2 process that blocks for longer than the aging threshold comes back in Q1 |
 
+Before the tests, `schedtest` checks that the emulated clock is steady
+(50 ticks of sleep must not take much longer than 500 ms of the time
+counter). If QEMU is being paused by the host, it prints a warning
+recommending `make qemu ICOUNT=1` (section 17).
+
 "Statistics consistent" means `turnaround = cpu + wait + sleep` and
 `cpu = Σ level times` (±3 µs rounding), and `ctime ≤ first_run ≤
 etime`. \* = MLFQ kernels only. † = one CPU only (these compare
@@ -1123,7 +1142,7 @@ timings).
 Host-side scripts:
 
 ```
-scripts/run_tests.py          # schedtest on 8 configurations + a smoke test session
+scripts/run_tests.py          # schedtest on 8 configurations + a smoke test session (deterministic clock)
 ./test-xv6.py usertests       # the upstream xv6 test suite
 CPUS=3 ./test-xv6.py usertests
 ```

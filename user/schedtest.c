@@ -84,8 +84,11 @@ reap(int pid, struct procstat *st)
   while ((got = waitstat(&status, st)) >= 0)
     if (got == pid)
       return status;
-  printf("schedtest: lost child %d\n", pid);
-  exit(1);
+  // The child exited earlier than it should have and was discarded
+  // above while waiting for another one.
+  fail("reap", "a child exited earlier than expected");
+  memset(st, 0, sizeof(*st));
+  return -1;
 }
 
 // ---- workloads ----
@@ -321,6 +324,7 @@ test_round_robin(void)
 static void
 aging_driver(int unused)
 {
+  int before = failures; // inherited from the parent by fork()
   char *t = "aging prevents starvation";
   struct procstat st;
   int status;
@@ -349,14 +353,16 @@ aging_driver(int unused)
       spawn(w_burn, stream_ms);
   }
   check(longdone, t, "long job not reaped");
-  exit(failures);
+  exit(failures - before);
 }
 
 static void
 test_aging(void)
 {
   struct procstat st;
-  failures += reap(spawn(aging_driver, 0), &st);
+  int n = reap(spawn(aging_driver, 0), &st);
+  if (n > 0)
+    failures += n; // the child already printed what failed
 }
 
 // Burn into Q2, then block (in wait(), which has no spurious wakeups,
@@ -411,6 +417,26 @@ test_trace(void)
   check(runs == st.ndispatch, t, "RUNNING events != dispatch count");
 }
 
+// The timing tests assume that the emulated clock advances steadily.
+// When QEMU itself is paused now and then (e.g. inside a busy virtual
+// machine), the time of the pause is charged to whatever process was
+// running and timer ticks arrive late. Detect that and say so.
+static void
+check_clock(void)
+{
+  struct procstat st;
+  reap(spawn(w_sleep, 50), &st);
+  if (st.sleep_time > TICKS(60)) {
+    printf("WARNING: the emulated clock is irregular: 50 ticks took %lu ms "
+           "instead of %d ms.\n",
+           st.sleep_time / 1000, 50 * tick / 1000);
+    printf("WARNING: QEMU is being paused by the host (for example, a busy "
+           "virtual machine),\n");
+    printf("WARNING: so timing tests may fail. Use the deterministic clock: "
+           "make qemu ICOUNT=1\n");
+  }
+}
+
 static void
 run(char *name, void (*fn)(void))
 {
@@ -429,6 +455,7 @@ main(void)
     exit(1);
   }
   tick = si.tick_us;
+  check_clock();
   printf("schedtest: policy %s, %d CPU(s), tick %d us",
          si.policy == SCHED_POLICY_MLFQ ? "MLFQ" : "RR", si.ncpu, tick);
   if (si.policy == SCHED_POLICY_MLFQ)
