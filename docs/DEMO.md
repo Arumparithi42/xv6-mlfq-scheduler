@@ -345,6 +345,62 @@ twice (`promote=2`) and never waited more than 0.71 s, which is the
 
 Exit (Ctrl-A, X) and rebuild the default configuration: `make qemu ICOUNT=1`.
 
+### B.9b Promotion (aging) live
+
+**(a) Watch promotions happen with Ctrl-P.** Start six CPU-bound
+processes:
+
+```
+$ cpubench &
+$ cpubench &
+$ cpubench &
+$ cpubench &
+$ cpubench &
+$ cpubench &
+```
+
+Wait a few seconds and press **Ctrl-P**; repeat a few seconds later.
+Look at the `promote=` column:
+
+```
+6 runble cpubench Q2 qused=0 cpu=438 wait=2062 sleep=0 disp=6 demote=4 promote=2
+...
+6 runble cpubench Q2 qused=0 cpu=919 wait=4885 sleep=0 disp=12 demote=8 promote=6
+...
+6 runble cpubench Q2 qused=0 cpu=1319 wait=7388 sleep=0 disp=17 demote=13 promote=11
+```
+
+What to say: *"With six jobs sharing Q2, each one waits about 5 × 160 ms
+= 800 ms for its turn. That is longer than the aging threshold of
+500 ms, so aging promotes it to Q1 (`promote` goes up), it runs one Q1
+quantum, is demoted to Q2 again (`demote` goes up), and so on. That is
+starvation prevention at work."* A promoted process runs almost
+immediately, so a snapshot usually shows `Q2`; the growing counters
+are the evidence. (The first `cpubench` may show `promote=0`: while
+the others were still in Q0/Q1 it got ahead.)
+
+Clean up: `kill` all six pids (`kill 4 6 8 10 12 14`, using the pids
+from Ctrl-P).
+
+**(b) Exact promotion times, from the event trace.** The xv6 shell has
+no quotes, so use `.` (grep's "any character") instead of a space:
+
+```
+$ mlfqexp aging | grep L.from=2
+```
+
+Expected:
+
+```
+EV rep=1 t=700282 pid=7 type=L from=2 to=1 prio=2
+EV rep=1 t=1481129 pid=7 type=L from=2 to=1 prio=2
+```
+
+What to say: *"The long job, starved in Q2 by a stream of short jobs,
+was promoted to Q1 after 700 ms and again after 1481 ms (times in
+microseconds). Without aging (`make qemu AGING=0 ICOUNT=1`) this
+prints nothing: the job is never promoted and starves."*
+
 ### B.10 The controlled experiments (show results, optionally re-run)
 
 Show `README.md` (sections 14–15) in Firefox on GitHub: timelines,
